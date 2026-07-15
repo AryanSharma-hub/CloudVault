@@ -52,7 +52,7 @@ app.use('/', require('./routes/index'));
 app.use(notFoundHandler);
 app.use(errorHandler);
 
-app.listen(PORT, () => {
-  loggingService.info(`CloudVault server started on http://localhost:${PORT}`);
-  console.log(`\n\x1b[32m✔ CloudVault is running at http://localhost:${PORT}\x1b[0m\n`);
+app.listen(PORT, "0.0.0.0", () => {
+  loggingService.info(`CloudVault server started on http://0.0.0.0:${PORT}`);
+  console.log(`\nCloudVault is running at http://0.0.0.0:${PORT}\n`);
 });
