@@ -1,0 +1,45 @@
+<!-- views/partials/navbar.ejs -->
+<nav class="navbar navbar-expand-lg cv-navbar sticky-top">
+  <div class="container-fluid px-4">
+    <a class="navbar-brand cv-brand" href="/dashboard">
+      <span class="cv-brand-icon"><i class="bi bi-cloud-fill"></i></span>
+      CloudVault
+    </a>
+    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#cvNavbar">
+      <i class="bi bi-list text-white fs-2"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="cvNavbar">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+        <li class="nav-item">
+          <a class="nav-link <%= title === 'Dashboard' ? 'active' : '' %>" href="/dashboard"><i class="bi bi-speedometer2 me-1"></i> Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <%= title === 'My Files' ? 'active' : '' %>" href="/files"><i class="bi bi-folder2-open me-1"></i> My Files</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <%= title === 'My Profile' ? 'active' : '' %>" href="/profile"><i class="bi bi-person-circle me-1"></i> Profile</a>
+        </li>
+      </ul>
+      <div class="d-flex align-items-center gap-3">
+        <button id="themeToggle" class="btn btn-icon" type="button" title="Toggle dark mode">
+          <i class="bi bi-moon-stars-fill"></i>
+        </button>
+        <div class="dropdown">
+          <button class="btn cv-user-pill dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            <span class="cv-avatar"><%= currentUser.firstName.charAt(0) %><%= currentUser.lastName.charAt(0) %></span>
+            <span class="d-none d-md-inline"><%= currentUser.firstName %></span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end cv-dropdown">
+            <li><a class="dropdown-item" href="/profile"><i class="bi bi-person me-2"></i>Profile</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li>
+              <form action="/logout" method="POST" class="m-0">
+                <button type="submit" class="dropdown-item text-danger"><i class="bi bi-box-arrow-right me-2"></i>Log out</button>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

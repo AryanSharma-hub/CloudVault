@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head') %>
+</head>
+<body class="cv-app-body">
+  <%- include('partials/navbar') %>
+
+  <main class="container-fluid px-4 py-4">
+    <% if (flashSuccess) { %>
+      <div class="alert alert-success cv-alert alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle-fill me-2"></i><%= flashSuccess %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    <% } %>
+    <% if (flashError) { %>
+      <div class="alert alert-danger cv-alert alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i><%= flashError %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+    <% } %>
+
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-4 gap-3">
+      <h2 class="cv-page-title mb-0">My Files</h2>
+      <div class="d-flex gap-2 flex-wrap">
+        <div class="input-group cv-input-group cv-search-group">
+          <span class="input-group-text"><i class="bi bi-search"></i></span>
+          <input type="text" id="searchInput" class="form-control" placeholder="Search files by name..." value="<%= searchQuery %>" />
+        </div>
+        <button class="btn cv-btn-primary" data-bs-toggle="modal" data-bs-target="#uploadModal">
+          <i class="bi bi-cloud-upload-fill me-1"></i> Upload
+        </button>
+      </div>
+    </div>
+
+    <div class="cv-glass cv-panel">
+      <div class="table-responsive">
+        <table class="table cv-table align-middle mb-0">
+          <thead>
+            <tr>
+              <th>Filename</th>
+              <th>Size</th>
+              <th>Type</th>
+              <th>Upload Date</th>
+              <th>Downloads</th>
+              <th class="text-end">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="filesTableBody">
+            <%- include('partials/filesRows', { files: files }) %>
+          </tbody>
+        </table>
+        <div id="emptyState" class="cv-empty-state <%= files.length ? 'd-none' : '' %>">
+          <i class="bi bi-folder2-open display-4"></i>
+          <p class="mt-3 mb-0">No files found.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Upload Modal -->
+  <div class="modal fade" id="uploadModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content cv-modal">
+        <form action="/files/upload" method="POST" enctype="multipart/form-data">
+          <div class="modal-header border-0">
+            <h5 class="modal-title"><i class="bi bi-cloud-upload-fill me-2"></i>Upload a File</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          </div>
+          <div class="modal-body">
+            <div class="cv-dropzone" id="dropzone">
+              <i class="bi bi-cloud-arrow-up display-4"></i>
+              <p class="mb-1 mt-2">Drag & drop or click to browse</p>
+              <p class="text-muted small mb-0">PDF, Images, ZIP, TXT, DOCX, PPTX — up to 50MB</p>
+              <input type="file" name="file" id="fileInput" class="form-control mt-3" required
+                accept=".pdf,.png,.jpg,.jpeg,.gif,.webp,.zip,.txt,.docx,.doc,.pptx,.ppt" />
+            </div>
+            <div id="fileNamePreview" class="mt-2 small text-muted"></div>
+          </div>
+          <div class="modal-footer border-0">
+            <button type="button" class="btn cv-btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn cv-btn-primary"><i class="bi bi-upload me-1"></i> Upload</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <%- include('partials/scripts') %>
+  <script src="/js/dashboard.js"></script>
+  <script src="/js/filesPage.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../partials/head') %>
+</head>
+<body class="cv-auth-body">
+  <div class="cv-auth-wrapper">
+    <div class="cv-auth-card text-center">
+      <i class="bi bi-signpost-2 display-1 cv-error-icon"></i>
+      <h1 class="cv-auth-title mt-3">404</h1>
+      <p class="text-muted mb-4">The page you're looking for doesn't exist.</p>
+      <a href="<%= user ? '/dashboard' : '/login' %>" class="btn cv-btn-primary px-4">
+        <i class="bi bi-house-fill me-1"></i> Go Home
+      </a>
+    </div>
+  </div>
+</body>
+</html>

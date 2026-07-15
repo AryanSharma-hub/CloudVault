@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('partials/head') %>
+</head>
+<body class="cv-app-body">
+  <%- include('partials/navbar') %>
+
+  <main class="container-fluid px-4 py-4">
+    <h2 class="cv-page-title mb-4">My Profile</h2>
+
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="cv-glass cv-panel text-center">
+          <span class="cv-avatar cv-avatar-lg mx-auto"><%= profile.firstName.charAt(0) %><%= profile.lastName.charAt(0) %></span>
+          <h4 class="mt-3 mb-0"><%= profile.fullName %></h4>
+          <p class="text-muted"><%= profile.email %></p>
+          <hr />
+          <p class="small text-muted mb-0">Member since <%= new Date(profile.createdAt.replace(' ', 'T') + 'Z').toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></p>
+        </div>
+      </div>
+
+      <div class="col-lg-8">
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="cv-stat-card cv-glass">
+              <div class="cv-stat-icon cv-stat-icon-blue"><i class="bi bi-files"></i></div>
+              <div>
+                <div class="cv-stat-value"><%= stats.totalFiles %></div>
+                <div class="cv-stat-label">Files Uploaded</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="cv-stat-card cv-glass">
+              <div class="cv-stat-icon cv-stat-icon-purple"><i class="bi bi-hdd-fill"></i></div>
+              <div>
+                <div class="cv-stat-value"><%= stats.totalSizeFormatted %></div>
+                <div class="cv-stat-label">Storage Used</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="cv-stat-card cv-glass">
+              <div class="cv-stat-icon cv-stat-icon-green"><i class="bi bi-download"></i></div>
+              <div>
+                <div class="cv-stat-value"><%= stats.totalDownloads %></div>
+                <div class="cv-stat-label">Total Downloads</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cv-glass cv-panel mt-4">
+          <h5 class="mb-3"><i class="bi bi-shield-lock-fill me-2"></i>Account Security</h5>
+          <ul class="list-unstyled mb-0 cv-security-list">
+            <li><i class="bi bi-check-circle-fill text-success me-2"></i>Password securely hashed with bcrypt</li>
+            <li><i class="bi bi-check-circle-fill text-success me-2"></i>Session-based authentication enabled</li>
+            <li><i class="bi bi-check-circle-fill text-success me-2"></i>All uploads validated for type and size</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <%- include('partials/scripts') %>
+</body>
+</html>

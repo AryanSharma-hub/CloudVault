@@ -1,0 +1,440 @@
+/* ==========================================================================
+   CloudVault — design tokens
+   Palette: deep indigo/night base with a violet→cyan "vault beam" gradient
+   signature. Glassmorphism panels float above an ambient gradient backdrop.
+   ========================================================================== */
+
+:root {
+  --cv-bg: #f4f5fb;
+  --cv-bg-gradient: radial-gradient(circle at 15% 0%, #e8e9fb 0%, #f4f5fb 45%),
+    radial-gradient(circle at 85% 100%, #e1f6f5 0%, #f4f5fb 50%);
+  --cv-surface: rgba(255, 255, 255, 0.65);
+  --cv-surface-solid: #ffffff;
+  --cv-border: rgba(99, 102, 241, 0.14);
+  --cv-text: #1c1f37;
+  --cv-text-muted: #676c8c;
+  --cv-primary-1: #6366f1;
+  --cv-primary-2: #22d3ee;
+  --cv-primary-gradient: linear-gradient(135deg, var(--cv-primary-1) 0%, var(--cv-primary-2) 100%);
+  --cv-shadow: 0 8px 30px rgba(76, 81, 191, 0.12);
+  --cv-radius-lg: 22px;
+  --cv-radius-md: 14px;
+  --cv-radius-sm: 10px;
+  --cv-navbar-bg: linear-gradient(120deg, #1e1b4b 0%, #312e81 55%, #1e3a5f 100%);
+  --cv-success: #16a34a;
+  --cv-danger: #dc2626;
+}
+
+[data-theme='dark'] {
+  --cv-bg: #0b0e1c;
+  --cv-bg-gradient: radial-gradient(circle at 10% 0%, #1b1440 0%, #0b0e1c 45%),
+    radial-gradient(circle at 90% 100%, #0e2b34 0%, #0b0e1c 55%);
+  --cv-surface: rgba(24, 27, 51, 0.55);
+  --cv-surface-solid: #14172c;
+  --cv-border: rgba(148, 163, 255, 0.14);
+  --cv-text: #eef0fb;
+  --cv-text-muted: #9ba1c9;
+  --cv-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+  --cv-navbar-bg: linear-gradient(120deg, #0c0a24 0%, #191650 55%, #0b2536 100%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--cv-text);
+  background: var(--cv-bg-gradient);
+  background-attachment: fixed;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* ---------- Brand ---------- */
+.cv-brand-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--cv-primary-gradient);
+  color: #fff;
+  font-size: 1.1rem;
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.45);
+}
+.cv-brand-icon-lg {
+  width: 64px;
+  height: 64px;
+  font-size: 1.9rem;
+  border-radius: 18px;
+}
+.cv-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: #fff !important;
+  letter-spacing: -0.02em;
+}
+
+/* ---------- Navbar ---------- */
+.cv-navbar {
+  background: var(--cv-navbar-bg);
+  padding: 0.85rem 0;
+  box-shadow: 0 4px 24px rgba(10, 10, 30, 0.25);
+}
+.cv-navbar .nav-link {
+  color: rgba(255, 255, 255, 0.75) !important;
+  font-weight: 500;
+  padding: 0.5rem 0.9rem !important;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+.cv-navbar .nav-link:hover,
+.cv-navbar .nav-link.active {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.1);
+}
+.btn-icon {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.btn-icon:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(-15deg);
+}
+.cv-user-pill {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.35rem 0.9rem 0.35rem 0.35rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.cv-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--cv-primary-gradient);
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+.cv-avatar-lg {
+  width: 84px;
+  height: 84px;
+  font-size: 1.6rem;
+  display: flex;
+}
+.cv-dropdown {
+  border-radius: var(--cv-radius-md);
+  border: 1px solid var(--cv-border);
+  box-shadow: var(--cv-shadow);
+  background: var(--cv-surface-solid);
+  padding: 0.4rem;
+}
+.cv-dropdown .dropdown-item {
+  border-radius: 8px;
+  padding: 0.55rem 0.8rem;
+  color: var(--cv-text);
+}
+.cv-dropdown .dropdown-item:hover {
+  background: rgba(99, 102, 241, 0.1);
+}
+
+/* ---------- Glass panels ---------- */
+.cv-glass {
+  background: var(--cv-surface);
+  border: 1px solid var(--cv-border);
+  border-radius: var(--cv-radius-lg);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow: var(--cv-shadow);
+}
+.cv-panel {
+  padding: 1.75rem;
+}
+.cv-page-title {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* ---------- Stat cards ---------- */
+.cv-stat-card {
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  height: 100%;
+  transition: transform 0.25s ease;
+}
+.cv-stat-card:hover {
+  transform: translateY(-4px);
+}
+.cv-stat-icon {
+  width: 54px;
+  height: 54px;
+  min-width: 54px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: #fff;
+}
+.cv-stat-icon-blue {
+  background: linear-gradient(135deg, #6366f1, #4338ca);
+}
+.cv-stat-icon-purple {
+  background: linear-gradient(135deg, #a855f7, #6366f1);
+}
+.cv-stat-icon-green {
+  background: linear-gradient(135deg, #22d3ee, #0ea5a4);
+}
+.cv-stat-value {
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+.cv-stat-label {
+  color: var(--cv-text-muted);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* ---------- Table ---------- */
+.cv-table {
+  --bs-table-bg: transparent;
+  color: var(--cv-text);
+}
+.cv-table thead th {
+  border-bottom: 1px solid var(--cv-border);
+  color: var(--cv-text-muted);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  padding-bottom: 0.85rem;
+}
+.cv-table td {
+  border-bottom: 1px solid var(--cv-border);
+  padding: 0.9rem 0.75rem;
+  font-size: 0.92rem;
+}
+.cv-table tr:last-child td {
+  border-bottom: none;
+}
+.cv-badge {
+  background: rgba(99, 102, 241, 0.14);
+  color: var(--cv-primary-1);
+  font-weight: 700;
+  font-size: 0.72rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 8px;
+}
+.cv-btn-icon {
+  background: rgba(99, 102, 241, 0.1);
+  border: none;
+  color: var(--cv-primary-1);
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+.cv-btn-icon:hover {
+  background: var(--cv-primary-1);
+  color: #fff;
+}
+.cv-btn-icon-danger {
+  color: var(--cv-danger);
+  background: rgba(220, 38, 38, 0.1);
+  margin-left: 0.35rem;
+}
+.cv-btn-icon-danger:hover {
+  background: var(--cv-danger);
+  color: #fff;
+}
+
+/* ---------- Empty state ---------- */
+.cv-empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--cv-text-muted);
+}
+
+/* ---------- Buttons ---------- */
+.cv-btn-primary {
+  background: var(--cv-primary-gradient);
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  border-radius: var(--cv-radius-sm);
+  box-shadow: 0 6px 18px rgba(99, 102, 241, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.cv-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(99, 102, 241, 0.45);
+  color: #fff;
+}
+.cv-btn-secondary {
+  background: transparent;
+  border: 1px solid var(--cv-border);
+  color: var(--cv-text);
+  border-radius: var(--cv-radius-sm);
+  font-weight: 600;
+}
+
+/* ---------- Forms ---------- */
+.cv-input-group .input-group-text {
+  background: transparent;
+  border-right: none;
+  color: var(--cv-text-muted);
+  border-color: var(--cv-border);
+  border-radius: var(--cv-radius-sm) 0 0 var(--cv-radius-sm);
+}
+.cv-input-group .form-control {
+  border-left: none;
+  border-color: var(--cv-border);
+  border-radius: 0 var(--cv-radius-sm) var(--cv-radius-sm) 0;
+  background: var(--cv-surface-solid);
+  color: var(--cv-text);
+  padding: 0.65rem 0.9rem;
+}
+.cv-input-group .form-control:focus {
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.18);
+  border-color: var(--cv-primary-1);
+}
+.cv-search-group {
+  min-width: 260px;
+}
+
+/* ---------- Auth pages ---------- */
+.cv-auth-body {
+  background: var(--cv-bg-gradient);
+  min-height: 100vh;
+}
+.cv-auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+.cv-auth-card {
+  background: var(--cv-surface);
+  border: 1px solid var(--cv-border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--cv-radius-lg);
+  box-shadow: var(--cv-shadow);
+  padding: 2.75rem 2.5rem;
+  width: 100%;
+  max-width: 440px;
+  animation: cv-fade-up 0.5s ease;
+}
+.cv-auth-card-wide {
+  max-width: 560px;
+}
+.cv-auth-title {
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.cv-link {
+  color: var(--cv-primary-1);
+  font-weight: 600;
+}
+.cv-alert {
+  border-radius: var(--cv-radius-sm);
+  border: none;
+  font-size: 0.88rem;
+}
+.cv-error-icon {
+  background: var(--cv-primary-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes cv-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------- Dropzone ---------- */
+.cv-dropzone {
+  border: 2px dashed var(--cv-border);
+  border-radius: var(--cv-radius-md);
+  padding: 2rem 1rem;
+  text-align: center;
+  color: var(--cv-text-muted);
+  position: relative;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.cv-dropzone.cv-dragover {
+  border-color: var(--cv-primary-1);
+  background: rgba(99, 102, 241, 0.06);
+}
+.cv-dropzone input[type='file'] {
+  cursor: pointer;
+}
+
+/* ---------- Modal ---------- */
+.cv-modal {
+  background: var(--cv-surface-solid);
+  border-radius: var(--cv-radius-lg);
+  border: 1px solid var(--cv-border);
+  color: var(--cv-text);
+}
+
+/* ---------- Security list ---------- */
+.cv-security-list li {
+  padding: 0.5rem 0;
+  font-size: 0.92rem;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 767px) {
+  .cv-panel {
+    padding: 1.25rem;
+  }
+  .cv-search-group {
+    min-width: 100%;
+  }
+  .cv-auth-card {
+    padding: 2rem 1.5rem;
+  }
+}
