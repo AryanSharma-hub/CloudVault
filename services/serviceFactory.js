@@ -28,7 +28,7 @@ const FileLoggingService = require('./logging/FileLoggingService');
 
 // Notification
 const ConsoleNotificationService = require('./notification/ConsoleNotificationService');
-// const SNSNotificationService = require('./notification/SNSNotificationService'); // <-- future AWS impl
+const SNSNotificationService = require('./notification/SNSNotificationService'); // <-- future AWS impl
 
 // Metadata
 const SQLiteMetadataService = require('./metadata/SQLiteMetadataService');
@@ -50,13 +50,17 @@ function createLoggingService() {
 }
 
 function createNotificationService(loggingService) {
+
   switch (PROVIDERS.NOTIFICATION) {
+
+    case 'sns':
+      return new SNSNotificationService();
+
     case 'console':
       return new ConsoleNotificationService(loggingService);
-    // case 'sns':
-    //   return new SNSNotificationService(loggingService);
+
     default:
-      return new ConsoleNotificationService(loggingService);
+      return new SNSNotificationService();
   }
 }
 
