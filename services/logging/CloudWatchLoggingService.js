@@ -1,14 +1,34 @@
-function createNotificationService(loggingService) {
+const LoggingService = require('./LoggingService');
+const WinstonCloudWatch = require('winston-cloudwatch');
+const winston = require('winston');
 
-    switch (PROVIDERS.NOTIFICATION) {
+class CloudWatchLoggingService extends LoggingService {
 
-        case 'sns':
-            return new SNSNotificationService();
+    constructor() {
+        super();
 
-        case 'console':
-            return new ConsoleNotificationService(loggingService);
+        this.logger = winston.createLogger({
+            transports: [
+                new WinstonCloudWatch({
+                    logGroupName: 'CloudVaultLogs',
+                    logStreamName: 'CloudVaultStream',
+                    awsRegion: 'us-east-1'
+                })
+            ]
+        });
+    }
 
-        default:
-            return new SNSNotificationService();
+    info(message, meta = {}) {
+        this.logger.info(message, meta);
+    }
+
+    warning(message, meta = {}) {
+        this.logger.warn(message, meta);
+    }
+
+    error(message, meta = {}) {
+        this.logger.error(message, meta);
     }
 }
+
+module.exports = CloudWatchLoggingService;
