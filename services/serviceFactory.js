@@ -24,7 +24,7 @@ const { PROVIDERS } = require('../config/constants');
 
 // Logging
 const FileLoggingService = require('./logging/FileLoggingService');
-// const CloudWatchLoggingService = require('./logging/CloudWatchLoggingService'); // <-- future AWS impl
+const CloudWatchLoggingService = require('./logging/CloudWatchLoggingService'); // <-- future AWS impl
 
 // Notification
 const ConsoleNotificationService = require('./notification/ConsoleNotificationService');
@@ -39,13 +39,17 @@ const S3StorageService = require("./storage/S3StorageService");
 // const S3StorageService = require('./storage/S3StorageService'); // <-- future AWS impl
 
 function createLoggingService() {
+
   switch (PROVIDERS.LOGGING) {
+
+    case 'cloudwatch':
+      return new CloudWatchLoggingService();
+
     case 'file':
       return new FileLoggingService();
-    // case 'cloudwatch':
-    //   return new CloudWatchLoggingService();
+
     default:
-      return new FileLoggingService();
+      return new CloudWatchLoggingService();
   }
 }
 

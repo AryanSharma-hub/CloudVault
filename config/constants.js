@@ -22,7 +22,7 @@ module.exports = {
     STORAGE: process.env.STORAGE_PROVIDER || 's3', // 'local' | 's3'
     METADATA: process.env.METADATA_PROVIDER || 'sqlite', // 'sqlite' | 'dynamodb'
     NOTIFICATION: process.env.NOTIFICATION_PROVIDER || 'sns', // 'console' | 'sns'
-    LOGGING: process.env.LOGGING_PROVIDER || 'file', // 'file' | 'cloudwatch'
+    LOGGING: process.env.LOGGING_PROVIDER || 'cloudwatch', // 'file' | 'cloudwatch'
   },
 
   UPLOAD: {
