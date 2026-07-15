@@ -138,7 +138,21 @@ exports.downloadFile = async (req, res, next) => {
     notificationService.sendDownloadNotification(req.session.user, fileRecord);
     loggingService.info('File downloaded', { userId, fileId });
 
-    return res.download(fileInfo.path, fileRecord.originalName);
+    const fileBuffer = await storageService.download(
+      fileRecord.storedName
+    );
+
+    res.setHeader(
+      'Content-Disposition',
+      `attachment; filename="${fileRecord.originalName}"`
+    );
+
+    res.setHeader(
+      'Content-Type',
+      fileRecord.mimeType || 'application/octet-stream'
+    );
+
+    return res.send(fileBuffer);
   } catch (err) {
     return next(err);
   }
