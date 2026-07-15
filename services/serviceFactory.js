@@ -32,7 +32,7 @@ const ConsoleNotificationService = require('./notification/ConsoleNotificationSe
 
 // Metadata
 const SQLiteMetadataService = require('./metadata/SQLiteMetadataService');
-const DynamoDBMetadataService = require('./metadata/DynamoMetadataService'); // <-- future AWS impl
+const DynamoMetadataService = require('./metadata/DynamoMetadataService'); // <-- future AWS impl
 
 // Storage
 const S3StorageService = require("./storage/S3StorageService");
