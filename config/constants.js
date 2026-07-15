@@ -20,7 +20,7 @@ module.exports = {
   // Provider switches - change these (or the related env vars) to migrate to AWS later.
   PROVIDERS: {
     STORAGE: process.env.STORAGE_PROVIDER || 's3', // 'local' | 's3'
-    METADATA: process.env.METADATA_PROVIDER || 'sqlite', // 'sqlite' | 'dynamodb'
+    METADATA: process.env.METADATA_PROVIDER || 'dynamodb', // 'sqlite' | 'dynamodb'
     NOTIFICATION: process.env.NOTIFICATION_PROVIDER || 'console', // 'console' | 'sns'
     LOGGING: process.env.LOGGING_PROVIDER || 'file', // 'file' | 'cloudwatch'
   },

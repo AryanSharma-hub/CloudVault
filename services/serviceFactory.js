@@ -32,7 +32,7 @@ const ConsoleNotificationService = require('./notification/ConsoleNotificationSe
 
 // Metadata
 const SQLiteMetadataService = require('./metadata/SQLiteMetadataService');
-// const DynamoDBMetadataService = require('./metadata/DynamoDBMetadataService'); // <-- future AWS impl
+const DynamoDBMetadataService = require('./metadata/DynamoMetadataService'); // <-- future AWS impl
 
 // Storage
 const S3StorageService = require("./storage/S3StorageService");
@@ -62,12 +62,15 @@ function createNotificationService(loggingService) {
 
 function createMetadataService() {
   switch (PROVIDERS.METADATA) {
+
     case 'sqlite':
       return new SQLiteMetadataService();
-    // case 'dynamodb':
-    //   return new DynamoDBMetadataService();
+
+    case 'dynamodb':
+      return new DynamoMetadataService();
+
     default:
-      return new SQLiteMetadataService();
+      return new DynamoMetadataService();
   }
 }
 
