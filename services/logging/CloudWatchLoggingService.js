@@ -13,11 +13,11 @@ class CloudWatchLoggingService {
 
         this.logGroupName = "CloudVaultLogs";
         this.logStreamName = `cloudvault-${Date.now()}`;
+
         this.sequenceToken = null;
+        this.initialized = false;
 
         console.log("CLOUDWATCH LOGGER CREATED");
-
-        this.initialize();
     }
 
     async initialize() {
@@ -28,26 +28,38 @@ class CloudWatchLoggingService {
                     logStreamName: this.logStreamName,
                 })
             );
+
+            console.log(
+                `Created CloudWatch log stream: ${this.logStreamName}`
+            );
         } catch (err) {
-            // ignore if stream already exists
+            // Ignore if already exists
+            if (
+                err.name !== "ResourceAlreadyExistsException"
+            ) {
+                console.error("Failed creating log stream:", err);
+            }
         }
+
+        this.initialized = true;
     }
 
     async write(level, message, metadata = {}) {
         try {
-            const params = {
-                logGroupName: this.logGroupName,
-                logStreamName: this.logStreamName,
-            };
+            if (!this.initialized) {
+                await this.initialize();
+            }
 
             const streams = await this.client.send(
-                new DescribeLogStreamsCommand(params)
+                new DescribeLogStreamsCommand({
+                    logGroupName: this.logGroupName,
+                    logStreamNamePrefix: this.logStreamName,
+                })
             );
 
             if (
                 streams.logStreams &&
-                streams.logStreams.length > 0 &&
-                streams.logStreams[0].uploadSequenceToken
+                streams.logStreams.length > 0
             ) {
                 this.sequenceToken =
                     streams.logStreams[0].uploadSequenceToken;
@@ -70,16 +82,21 @@ class CloudWatchLoggingService {
             };
 
             if (this.sequenceToken) {
-                putParams.sequenceToken = this.sequenceToken;
+                putParams.sequenceToken =
+                    this.sequenceToken;
             }
 
             const result = await this.client.send(
                 new PutLogEventsCommand(putParams)
             );
 
-            this.sequenceToken = result.nextSequenceToken;
+            this.sequenceToken =
+                result.nextSequenceToken;
         } catch (err) {
-            console.error("CloudWatch logging failed:", err);
+            console.error(
+                "CloudWatch logging failed:",
+                err
+            );
         }
     }
 
